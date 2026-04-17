@@ -1,34 +1,48 @@
 # ベイズ統計学研究プロジェクト
 
-## 予測サイドの設計
-このプロジェクトは、バイアスのかかったサイコロの結果を予測することを目的としています。サイコロシミュレーターの内部実装を検査せずに、予測モデルを設計します。
+歪んだサイコロを題材に、**ブラックボックス観測だけで確率を推定する**ベイズ学習プロジェクトです。
 
-## アーキテクチャ提案
-- **データ収集**: バイアスのかかったサイコロの結果をシミュレーションするためのデータを収集します。
-- **モデル選択**: ベイズ統計モデルを使用して、結果の予測を行います。具体的には、事前分布、尤度関数、事後分布を定義します。
-- **予測**: ベイズの定理を使用して得られた事後分布に基づいて、新しいサイコロの結果を予測します。
+## 学べること
+1. Dirichlet-Categorical モデルによるベイズ更新
+2. 観測回数が増えると推定がどう安定するか
+3. 予測確率だけでなく、不確実性も読む方法
 
-## 学習目標
-1. ベイズ統計の基本的な概念を理解する。
-2. バイアスのかかったサイコロのシミュレーションを設計し、その結果を解析する技術を習得する。
-3. 機械学習モデルを用いた予測手法を学び、実装する。
+## クイックスタート
+### 1. 基本デモ
+プロジェクト直下で次を実行します。
 
-## モデリングアプローチ
-- **事前分布の設定**: サイコロの各面が出る確率の初期推定を行います。
-- **尤度関数の選択**: シミュレーション結果に基づいて尤度を定義し、モデルのパラメータを最適化します。
-- **事後分布の計算**: 取得したデータを元に事後分布を計算し、最も確からしい結果を導き出します。
+python run_demo.py
 
-## 評価計画
-- **モデルの精度評価**: 予測結果と実際のシミュレーション結果を比較し、精度を測定します。
-- **交差検証**: 収集したデータを複数のサブセットに分割し、モデルの汎化能力を評価します。
+### 2. 収束の確認
+観測が増えると予測がどう変わるかを確認します。
 
-## 実験ワークフロー
-1. サイコロのシミュレーションデータを収集します。
-2. 事前分布と尤度関数を設定します。
-3. ベイズの定理を用いて事後分布を計算します。
-4. 予測結果を評価し、フィードバックをもとにモデルを改善します。
+python analyze_convergence.py
+
+### 3. テスト
+実装の正しさは次で確認できます。
+
+python -m unittest discover -s tests -v
+
+## プロジェクト構成
+- [docs/bayesian_dice_prediction_design.md](docs/bayesian_dice_prediction_design.md): 数式ベースの設計書
+- [docs/tutorial.md](docs/tutorial.md): 初学者向けチュートリアル
+- [run_demo.py](run_demo.py): 最小の実行例
+- [analyze_convergence.py](analyze_convergence.py): 学習過程の確認
+- [src/bayesian_dice](src/bayesian_dice): 実装本体
+
+## 学習の進め方
+1. [docs/tutorial.md](docs/tutorial.md) を読む
+2. [run_demo.py](run_demo.py) を実行する
+3. [analyze_convergence.py](analyze_convergence.py) で収束を確認する
+4. [docs/bayesian_dice_prediction_design.md](docs/bayesian_dice_prediction_design.md) の数式と照らし合わせる
+
+## モデル概要
+- サイコロの内部確率は見えない
+- 観測結果だけを使って確率を更新する
+- 初期版は対称 Dirichlet 事前分布を使う
+- 出力は各面の予測確率と不確実性の要約
 
 ## 参考文献
-- Gelman, A., et al. (2014). "Bayesian Data Analysis".
-- Wong, W. K. (2010). "Bayesian Statistics: An Introduction".
-- McElreath, R. (2020). "Statistical Rethinking: A Bayesian Course with Examples in R".
+- Gelman, A., et al. Bayesian Data Analysis. 3rd ed., 2014.
+- McElreath, R. Statistical Rethinking. 2nd ed., 2020.
+- Murphy, K. P. Machine Learning: A Probabilistic Perspective. 2012.
