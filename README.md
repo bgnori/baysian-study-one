@@ -37,8 +37,15 @@ python -m unittest discover -s tests -v
 ## プロジェクト構成
 - [docs/bayesian_dice_prediction_design.md](docs/bayesian_dice_prediction_design.md): 数式ベースの設計書
 - [docs/tutorial.md](docs/tutorial.md): 初学者向けチュートリアル
+- [docs/advanced_entropy_estimation.md](docs/advanced_entropy_estimation.md): エントロピー推定の発展課題
+- [docs/advanced_bayesian_topics.md](docs/advanced_bayesian_topics.md): 感度分析・公平性比較・時変歪み検知の発展課題
 - [run_demo.py](run_demo.py): 最小の実行例
 - [analyze_convergence.py](analyze_convergence.py): 学習過程の確認
+- [entropy_posterior_demo.py](entropy_posterior_demo.py): 乱数源エントロピー推定の発展デモ
+- [prior_sensitivity_study.py](prior_sensitivity_study.py): 事前分布感度分析の発展デモ
+- [posterior_predictive_study.py](posterior_predictive_study.py): 事後予測シミュレーションの発展デモ
+- [fairness_comparison_demo.py](fairness_comparison_demo.py): 公平なサイコロとの比較デモ
+- [time_varying_bias_demo.py](time_varying_bias_demo.py): 時変歪み検知の発展デモ
 - [src/bayesian_dice](src/bayesian_dice): 実装本体
 
 ## 学習の進め方
@@ -46,6 +53,8 @@ python -m unittest discover -s tests -v
 2. [run_demo.py](run_demo.py) を実行する
 3. [analyze_convergence.py](analyze_convergence.py) で収束を確認する
 4. [docs/bayesian_dice_prediction_design.md](docs/bayesian_dice_prediction_design.md) の数式と照らし合わせる
+5. 発展課題として [docs/advanced_entropy_estimation.md](docs/advanced_entropy_estimation.md) と [entropy_posterior_demo.py](entropy_posterior_demo.py) に進む
+6. さらに [docs/advanced_bayesian_topics.md](docs/advanced_bayesian_topics.md) を読み、感度分析・公平性比較・時変歪み検知を試す
 
 ## モデル概要
 - サイコロの内部確率は見えない

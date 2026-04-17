@@ -64,7 +64,8 @@ python analyze_convergence.py
 4. 不確実性の変化を読む
 
 ## 5. 次の発展テーマ
-- 事前分布の感度分析
-- 事後予測シミュレーション
-- 公平なサイコロとの比較
-- 時間によって歪みが変わるケースの検知
+- [docs/advanced_bayesian_topics.md](docs/advanced_bayesian_topics.md) を読んで、事前分布の感度分析を試す
+- [docs/advanced_bayesian_topics.md](docs/advanced_bayesian_topics.md) を読んで、事後予測シミュレーションの意味を確認する
+- [docs/advanced_bayesian_topics.md](docs/advanced_bayesian_topics.md) を読んで、公平なサイコロとの比較を行う
+- [docs/advanced_bayesian_topics.md](docs/advanced_bayesian_topics.md) を読んで、時間によって歪みが変わるケースの検知を学ぶ
+- [docs/advanced_entropy_estimation.md](docs/advanced_entropy_estimation.md) を読んで、乱数源のエントロピー推定と信用区間の縮小を確認する

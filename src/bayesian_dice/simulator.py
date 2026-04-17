@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import random
-from typing import Iterable
+from typing import Iterable, Sequence
 
 
 class BiasedDie:
@@ -28,6 +28,49 @@ class BiasedDie:
 
     def sample(self, n: int) -> list[int]:
         """Return n observed rolls from the die."""
+        if n < 0:
+            raise ValueError("Sample size must be non-negative.")
+        return [self.roll() for _ in range(n)]
+
+
+class ChangingBiasDie:
+    """Black-box die whose hidden probabilities can change over time."""
+
+    def __init__(self, phases: Sequence[tuple[int, Iterable[float]]], seed: int | None = None) -> None:
+        if not phases:
+            raise ValueError("phases must not be empty.")
+
+        self._phases: list[tuple[int, tuple[float, ...]]] = []
+        for length, probabilities in phases:
+            if length <= 0:
+                raise ValueError("Each phase length must be positive.")
+            weights = tuple(float(value) for value in probabilities)
+            if len(weights) != 6:
+                raise ValueError("A six-sided die requires exactly 6 probabilities.")
+            if any(value <= 0 for value in weights):
+                raise ValueError("All face probabilities must be positive.")
+            if abs(sum(weights) - 1.0) > 1e-9:
+                raise ValueError("Probabilities must sum to 1.0.")
+            self._phases.append((length, weights))
+
+        self._faces = (1, 2, 3, 4, 5, 6)
+        self._random = random.Random(seed)
+        self._roll_index = 0
+
+    def _current_weights(self) -> tuple[float, ...]:
+        remaining = self._roll_index
+        for phase_length, weights in self._phases:
+            if remaining < phase_length:
+                return weights
+            remaining -= phase_length
+        return self._phases[-1][1]
+
+    def roll(self) -> int:
+        weights = self._current_weights()
+        self._roll_index += 1
+        return self._random.choices(self._faces, weights=weights, k=1)[0]
+
+    def sample(self, n: int) -> list[int]:
         if n < 0:
             raise ValueError("Sample size must be non-negative.")
         return [self.roll() for _ in range(n)]
